@@ -1,0 +1,94 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+			<script src="https://cdn.bootcss.com/echarts/4.8.0/echarts.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>4-12</title>
+</head>
+
+<body>
+
+    <div id="box" style="width: 700px;height: 700px;"></div>
+    <script src="../js/echarts.js"></script>
+    <script>
+        var myChart = echarts.init(document.getElementById("box"));
+        var option = {
+            backgroundColor: 'ragb(204,204,204,0.7)',
+            title: {
+                text: '浏览器占比变化',
+                textStyle: { color: 'blue' },
+                top: 20,
+                left: 30
+            },
+            tooltip: {
+                trigger: 'item',
+                backgroundColor: 'rgba(0,0,255,0.8)'
+            },
+            legend: {
+                type: 'scroll',
+                bottom: 15,
+                data: (function () {
+                    var list = [];
+                    for (var i = 1; i <= 28; i++) {
+                        list.push(i + 2000 + '');
+                    }
+                    return list;
+                })()
+            },
+            visualMap: {
+                top: '47%',
+                right: 20,
+                color: ['red', 'yellow'],
+                calculable: true
+            },
+            radar: {
+                indicator: [
+                    { text: 'IE8-', max: 400, color: 'green' },
+                    { text: 'IE9+', max: 400, color: 'green' },
+                    { text: 'Safari', max: 400, color: 'blue' },
+                    { text: 'Firefox', max: 400, color: 'blue' },
+                    { text: 'Chrome', max: 400, color: 'red' }
+                ]
+            },
+            series: (function () {
+                var series = [];
+                for (var i = 1; i <= 28; i++) {
+                    series.push({
+                        type: 'radar',
+                        symbol: 'none',
+                        lineStyle: {
+                            width: 1
+                        },
+                        emphasis: {
+                            areaStyle: {
+                                color: 'rgba(0,250,0,0.3)'
+                            }
+                        },
+                        data: [
+                            {
+                                value: [
+                                    (40 - i) * 10,
+                                    (38 - i) * 4 + 60,
+                                    i * 5 + 10,
+                                    i * 9,
+                                    (i * i) / 2
+                                ],
+                                name: i + 2000 + ''
+                            }
+                        ]
+                    });
+                }
+                return series;
+            })()
+        };
+
+        myChart.setOption(option);
+    </script>
+
+</body>
+
+</html>
